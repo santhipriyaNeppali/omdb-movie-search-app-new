@@ -50,8 +50,12 @@ export class MovieService {
 
   constructor(private http: HttpClient) {}
 
-  getMovie(args: { key: string; value: string }) {
+  getMovieList(args: { key: string; value: string }) {
     return this.http.get(`${URL}?${args.key}=${args.value}&apikey=${APIKEY}`);
+  }
+
+  getMovie(title) {
+    return this.http.get(`${URL}?t=${title}&apikey=${APIKEY}`);
   }
 
   refreshMovieList(movieList) {

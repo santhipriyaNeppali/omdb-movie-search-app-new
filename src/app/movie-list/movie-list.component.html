@@ -1,0 +1,9 @@
+<ng-container *ngFor="let movie of movies">
+  <div class="movie-block" (click)="selectItem(movie)">
+    <img class="movie-poster" [src]="movie['Poster']" />
+    <div class="movie-title">
+      <p>{{ movie.Title }}</p>
+      <p>{{ movie.Year }}</p>
+    </div>
+  </div>
+</ng-container>

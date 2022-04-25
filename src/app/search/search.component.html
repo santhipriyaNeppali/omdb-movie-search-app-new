@@ -1,10 +1,35 @@
 <header>
-  <input
-    type="text"
-    placeholder="Search"
-    name="s"
-    (keyup)="sendSearch($event)"
-  />
+  <mat-form-field>
+    <input
+      matInput
+      type="text"
+      placeholder="Search"
+      name="s"
+      (keyup)="sendSearch($event)"
+    />
+  </mat-form-field>
+  <mat-radio-group [(ngModel)]="type">
+    1970
+    <mat-slider
+      thumbLabel
+      tickInterval="10"
+      step="1"
+      min="1970"
+      max="2015"
+      aria-label="year"
+    ></mat-slider>
+    2015
+    <mat-radio-button
+      *ngFor="
+        let option of ['any', 'movies', 'series', 'episodes'];
+        let last = last
+      "
+      [class.last-item]="last"
+      [value]="option"
+    >
+      {{ option | titlecase }}
+    </mat-radio-button>
+  </mat-radio-group>
 </header>
 
 {{ errorMessage }}

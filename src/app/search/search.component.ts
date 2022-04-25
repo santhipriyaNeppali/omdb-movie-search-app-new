@@ -8,10 +8,11 @@ import { MovieService } from '../services/movie.service';
 })
 export class SearchComponent {
   errorMessage: string;
+  type = 'any';
   constructor(private movieService: MovieService) {}
   sendSearch(event) {
     this.movieService
-      .getMovie({ key: 's', value: event.srcElement.value })
+      .getMovieList({ key: 's', value: event.srcElement.value })
       .subscribe(
         (res) => {
           this.movieService.refreshMovieList(res);

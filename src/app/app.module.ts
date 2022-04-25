@@ -4,13 +4,32 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { SearchComponent } from './search/search.component';
-import { MovieListComponent } from './movie-list/movie-list/movie-list.component';
+import { MovieListComponent } from './movie-list/movie-list.component';
 import { MovieService } from './services/movie.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ItemDetailsComponent } from './item-details/item-details.component';
+
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, HttpClientModule],
-  declarations: [AppComponent, SearchComponent, MovieListComponent],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    MatRadioModule,
+    MatSliderModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+  ],
+  declarations: [
+    AppComponent,
+    SearchComponent,
+    MovieListComponent,
+    ItemDetailsComponent,
+  ],
   bootstrap: [AppComponent],
   providers: [MovieService],
 })

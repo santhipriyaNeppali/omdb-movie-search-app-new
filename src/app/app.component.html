@@ -1,2 +1,9 @@
 <search></search>
-<movie-list></movie-list>
+<div class="movie-container">
+  <div class="left-pane">
+    <movie-list (itemSelected)="selectItem($event)"></movie-list>
+  </div>
+  <div class="right-pane">
+    <item-details [item]="selectedItem"></item-details>
+  </div>
+</div>
