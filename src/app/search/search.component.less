@@ -1,8 +1,36 @@
 header {
   display: flex;
   flex-wrap: wrap;
+  color: white;
   align-items: center;
   padding: 8px 16px;
   background-color: grey;
   border-radius: 0.1em;
+}
+
+.mat-form-field {
+  width: 40%;
+}
+
+.search-params {
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  .type {
+    flex-direction: column;
+  }
+  .mat-radio-group {
+    .mat-radio-button {
+      margin-right: 1em;
+    }
+  }
+}
+
+.type {
+  display: flex;
+  flex-direction: column;
+  margin-left: 2em;
+  label {
+    margin-bottom: 0.8em;
+  }
 }

@@ -1,4 +1,5 @@
 <header>
+  <mat-icon>search</mat-icon>
   <mat-form-field>
     <input
       matInput
@@ -8,28 +9,40 @@
       (keyup)="sendSearch($event)"
     />
   </mat-form-field>
-  <mat-radio-group [(ngModel)]="type">
-    1970
-    <mat-slider
-      thumbLabel
-      tickInterval="10"
-      step="1"
-      min="1970"
-      max="2015"
-      aria-label="year"
-    ></mat-slider>
-    2015
-    <mat-radio-button
-      *ngFor="
-        let option of ['any', 'movies', 'series', 'episodes'];
-        let last = last
-      "
-      [class.last-item]="last"
-      [value]="option"
-    >
-      {{ option | titlecase }}
-    </mat-radio-button>
-  </mat-radio-group>
+  <div class="search-params">
+    <div class="params">
+      <span>Year</span>
+      <div>
+        1970
+        <mat-slider
+          thumbLabel
+          tickInterval="10"
+          step="1"
+          min="1970"
+          max="2015"
+          aria-label="year"
+        ></mat-slider>
+        2015
+      </div>
+    </div>
+    <div class="type">
+      <label>Type</label>
+      <div>
+        <mat-radio-group [(ngModel)]="type" label="Type">
+          <mat-radio-button
+            *ngFor="
+              let option of ['any', 'movies', 'series', 'episodes'];
+              let last = last
+            "
+            [class.last-item]="last"
+            [value]="option"
+          >
+            {{ option | titlecase }}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+  </div>
 </header>
 
 {{ errorMessage }}
