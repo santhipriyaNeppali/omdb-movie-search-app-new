@@ -1,4 +1,5 @@
 import { Component, VERSION } from '@angular/core';
+import { MovieService } from '../services/movie.service';
 
 @Component({
   selector: 'search',
@@ -6,5 +7,18 @@ import { Component, VERSION } from '@angular/core';
   styleUrls: ['./search.component.less'],
 })
 export class SearchComponent {
-  name = 'Angular ' + VERSION.major;
+  errorMessage: string;
+  constructor(private movieService: MovieService) {}
+  sendSearch(event) {
+    this.movieService
+      .getMovie({ key: 's', value: event.srcElement.value })
+      .subscribe(
+        (res) => {
+          this.movieService.refreshMovieList(res);
+        },
+        (error) => {
+          this.errorMessage = error['message'];
+        }
+      );
+  }
 }
