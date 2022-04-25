@@ -1,21 +1,23 @@
-<div class="movie-full-info">
-  <img src="{{ item.Poster }}" />
-  <div class="movie-text">
-    <p class="title">{{ item.Title }}</p>
-    <p class="sub-text">
-      <span class="rated">{{ item.Rated }}</span>
-      <span>{{ item.Year }}.</span>
-      <span>{{ item.Genre }}.</span>
-      <span>{{ item.Runtime }}</span>
-    </p>
+<ng-container *ngIf="item && item.Year">
+  <div class="movie-full-info">
+    <img src="{{ item.Poster }}" />
+    <div class="movie-text">
+      <p class="title">{{ item.Title }}</p>
+      <p class="sub-text">
+        <span class="rated">{{ item.Rated }}</span>
+        <span>{{ item.Year }}.</span>
+        <span>{{ item.Genre }}.</span>
+        <span>{{ item.Runtime }}</span>
+      </p>
 
-    <p>{{ item.Actors }}</p>
+      <p>{{ item.Actors }}</p>
+    </div>
   </div>
-</div>
-<p class="plot">{{ item.Plot }}</p>
-<div class="rating">
-  <div *ngFor="let rating of item.Ratings" class="ratingSource">
-    <p>{{ rating.Source }}</p>
-    <span>{{ rating.Value }}</span>
+  <p class="plot">{{ item.Plot }}</p>
+  <div class="rating">
+    <div *ngFor="let rating of item.Ratings" class="ratingSource">
+      <p>{{ rating.Source }}</p>
+      <span>{{ rating.Value }}</span>
+    </div>
   </div>
-</div>
+</ng-container>

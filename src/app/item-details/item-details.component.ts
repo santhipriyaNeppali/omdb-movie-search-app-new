@@ -12,12 +12,10 @@ export class ItemDetailsComponent implements OnInit {
 
   constructor(private movieService: MovieService) {}
 
-  ngOnInit() {
-    console.log(this.item);
-  }
+  ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.item) {
+    if (changes.item && !changes.item.isFirstChange()) {
       this.movieService.getMovie(this.item.Title).subscribe((res) => {
         this.item = Object.assign(this.item, res);
       });
