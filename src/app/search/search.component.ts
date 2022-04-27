@@ -1,4 +1,5 @@
 import { Component, VERSION } from '@angular/core';
+import { NgModel } from '@angular/forms';
 import { MovieService } from '../services/movie.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { MovieService } from '../services/movie.service';
 })
 export class SearchComponent {
   errorMessage: string;
-  type = 'any';
+  type: NgModel;
   constructor(private movieService: MovieService) {}
   sendSearch(event) {
     this.movieService
@@ -21,5 +22,11 @@ export class SearchComponent {
           this.errorMessage = error['message'];
         }
       );
+  }
+
+  filterSearch() {
+    this.movieService.filterSearch({
+      filter: this.type.value
+    });
   }
 }

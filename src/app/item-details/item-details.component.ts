@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { MovieService } from '../services/movie.service';
 

@@ -2,12 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-  }),
-};
-
 interface Rating {
   Value: String;
   Source: String;
@@ -60,5 +54,23 @@ export class MovieService {
 
   refreshMovieList(movieList) {
     this.movieList.next(movieList);
+  }
+
+  filterSearch(filterParams) {
+    return this.movieList.getValue().filter((movieItem) => {
+      if (
+        !filterParams.type ||
+        (filterParams.type && filterParams.type == movieItem.Type)
+      ) {
+        return true;
+      }
+      if (
+        !filterParams.year ||
+        (filterParams.year && filterParams.year == movieItem.Year)
+      ) {
+        return true;
+      }
+      return false;
+    });
   }
 }
