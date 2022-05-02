@@ -6,31 +6,71 @@ header {
   padding: 8px 16px;
   background-color: grey;
   border-radius: 0.1em;
+  mat-icon {
+    position: relative;
+    top: 3px;
+    right: 3px;
+  }
 }
 
 .mat-form-field {
   width: 40%;
+  font-size: 14px;
 }
 
 .search-params {
   margin-left: auto;
   display: flex;
+  flex: 1;
+  justify-content: flex-end;
   flex-direction: row;
+  label {
+    margin-right: 0.8em;
+  }
+  .params {
+    flex: 0.5;
+    flex-direction: row;
+    display: flex;
+    justify-items: center;
+    align-items: baseline;
+  }
   .type {
-    flex-direction: column;
+    margin-top: 0.8em;
+    margin-left: 2em;
+    flex-direction: row;
+    display: flex;
+    justify-items: center;
+    align-items: center;
   }
   .mat-radio-group {
     .mat-radio-button {
       margin-right: 1em;
+      font-size: 14px;
     }
   }
 }
 
-.type {
-  display: flex;
-  flex-direction: column;
-  margin-left: 2em;
-  label {
-    margin-bottom: 0.8em;
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: white !important;
+}
+
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: white !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: white !important;
+}
+
+/* media */
+@media (max-width: 800px) {
+  .header,
+  .search-params,
+  .params,
+  .type {
+    flex-direction: column;
   }
 }

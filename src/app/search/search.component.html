@@ -1,32 +1,19 @@
 <header>
   <mat-icon>search</mat-icon>
   <mat-form-field>
-    <input
-      matInput
-      type="text"
-      placeholder="Search"
-      name="s"
-      (keyup)="sendSearch($event)"
-    />
+    <input matInput type="text" name="s" (keyup)="sendSearch($event)" />
   </mat-form-field>
   <div class="search-params">
     <div class="params">
-      <span>Year</span>
-      <div>
-        1970
-        <mat-slider
-          thumbLabel
-          tickInterval="10"
-          step="1"
-          min="1970"
-          max="2015"
-          aria-label="year"
-        ></mat-slider>
-        2015
-      </div>
+      <label>YEAR</label>
+      <ngx-slider
+        [(value)]="value"
+        [(highValue)]="highValue"
+        [options]="options"
+      ></ngx-slider>
     </div>
     <div class="type">
-      <label>Type</label>
+      <label>TYPE</label>
       <div>
         <mat-radio-group [(ngModel)]="type" label="Type">
           <mat-radio-button

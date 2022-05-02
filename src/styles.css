@@ -36,3 +36,26 @@
 .mat-slider.mat-accent .mat-slider-thumb-label {
   background-color: white;
 }
+
+.ngx-slider .ngx-slider-span.ngx-slider-selection {
+  background: darkgray;
+}
+
+.ngx-slider .ngx-slider-span.ngx-slider-bubble {
+  color: white;
+  font-size: 14px;
+}
+
+.ngx-slider .ngx-slider-span.ngx-slider-pointer {
+  background-color: darkgray;
+}
+
+.ngx-slider .ngx-slider-span.ngx-slider-bubble.ngx-slider-limit {
+  color: white;
+}
+.ngx-slider .ngx-slider-span.ngx-slider-pointer.ngx-slider-active::after {
+  background-color: white;
+}
+.ngx-slider .ngx-slider-span.ngx-slider-pointer.ngx-slider-active {
+  outline-color: darkgray;
+}
