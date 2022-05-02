@@ -41,6 +41,7 @@ const URL = `https://www.omdbapi.com`;
 @Injectable()
 export class MovieService {
   private movieList = new BehaviorSubject<any>([]);
+  private reqURL: string = '';
 
   constructor(private http: HttpClient) {}
 
@@ -68,6 +69,10 @@ export class MovieService {
 
   getMovieLstSubject() {
     return this.movieList;
+  }
+
+  getPaginatedList(page) {
+    return this.http.get(`${this.reqURL}&page=${page}`);
   }
 
   filterSearch(filterParams) {

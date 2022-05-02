@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     MatInputModule,
     MatIconModule,
     NgxSliderModule,
+    MatPaginatorModule,
   ],
   declarations: [
     AppComponent,
