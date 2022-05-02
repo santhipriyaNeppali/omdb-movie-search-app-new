@@ -2,6 +2,8 @@ import { Component, VERSION } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { MovieService } from '../services/movie.service';
 import { Options } from '@angular-slider/ngx-slider';
+import { Subscription } from 'rxjs';
+import { constants } from '../utils/constants';
 
 @Component({
   selector: 'search',
@@ -10,17 +12,27 @@ import { Options } from '@angular-slider/ngx-slider';
 })
 export class SearchComponent {
   errorMessage: string;
-  type: NgModel;
-  value: number = 1980;
-  highValue: number = 2013;
+  subscriber: Subscription;
+
+  //Default Search Parameters
+  value: number = constants.MOVIE_SEARCH.YEAR.MIN;
   options: Options = {
-    floor: 1970,
-    ceil: 2015,
+    floor: constants.MOVIE_SEARCH.YEAR.MIN,
+    ceil: constants.MOVIE_SEARCH.YEAR.MAX,
   };
+  type = 'any';
+  typeOptions = constants.MOVIE_SEARCH.TYPE_LABELS;
+
   constructor(private movieService: MovieService) {}
   sendSearch(event) {
-    this.movieService
-      .getMovieList({ key: 's', value: event.srcElement.value })
+    this.subscriber = this.movieService
+      .getMovieList(
+        { key: 's', value: event.srcElement.value },
+        {
+          type: this.type == 'any' ? null : this.type,
+          year: this.value,
+        }
+      )
       .subscribe(
         (res) => {
           this.movieService.refreshMovieList(res);
@@ -31,9 +43,7 @@ export class SearchComponent {
       );
   }
 
-  filterSearch() {
-    this.movieService.filterSearch({
-      filter: this.type.value,
-    });
+  ngOnDestroy() {
+    if (this.subscriber) this.subscriber.unsubscribe();
   }
 }

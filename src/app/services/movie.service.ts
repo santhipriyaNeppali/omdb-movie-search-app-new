@@ -40,12 +40,22 @@ const URL = `https://www.omdbapi.com`;
 
 @Injectable()
 export class MovieService {
-  movieList = new BehaviorSubject<any>([]);
+  private movieList = new BehaviorSubject<any>([]);
 
   constructor(private http: HttpClient) {}
 
-  getMovieList(args: { key: string; value: string }) {
-    return this.http.get(`${URL}?${args.key}=${args.value}&apikey=${APIKEY}`);
+  getMovieList(
+    args: { key: string; value: string },
+    filterParams?: { type: string; year: number }
+  ) {
+    let reqURL = `${URL}?${args.key}=${args.value}&apikey=${APIKEY}`;
+    if (filterParams && filterParams.type) {
+      reqURL += `&type=${filterParams.type}`;
+    }
+    if (filterParams && filterParams.year) {
+      reqURL += `&y=${filterParams.year}`;
+    }
+    return this.http.get(reqURL);
   }
 
   getMovie(title) {
@@ -54,6 +64,10 @@ export class MovieService {
 
   refreshMovieList(movieList) {
     this.movieList.next(movieList);
+  }
+
+  getMovieLstSubject() {
+    return this.movieList;
   }
 
   filterSearch(filterParams) {
@@ -66,7 +80,9 @@ export class MovieService {
       }
       if (
         !filterParams.year ||
-        (filterParams.year && filterParams.year == movieItem.Year)
+        (filterParams.year &&
+          filterParams.year.min >= movieItem.Year &&
+          filterParams.year.max <= movieItem.Year)
       ) {
         return true;
       }

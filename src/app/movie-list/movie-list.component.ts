@@ -14,9 +14,11 @@ export class MovieListComponent implements OnInit {
   constructor(private movieService: MovieService) {}
 
   ngOnInit() {
-    this.movieSubsriber = this.movieService.movieList.subscribe((res) => {
-      this.movies = res.Search || [];
-    });
+    this.movieSubsriber = this.movieService
+      .getMovieLstSubject()
+      .subscribe((res) => {
+        this.movies = res.Search || [];
+      });
   }
 
   ngOnDestroy() {
