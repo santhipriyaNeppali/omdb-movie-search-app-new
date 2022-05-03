@@ -1,8 +1,15 @@
-import { Component, VERSION } from '@angular/core';
+import { Component, ElementRef, VERSION, ViewChild } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { MovieService } from '../services/movie.service';
 import { Options } from '@angular-slider/ngx-slider';
-import { Subscription } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  fromEvent,
+  Subscription,
+  tap,
+} from 'rxjs';
 import { constants } from '../utils/constants';
 
 @Component({
@@ -24,10 +31,11 @@ export class SearchComponent {
   typeOptions = constants.MOVIE_SEARCH.TYPE_LABELS;
 
   constructor(private movieService: MovieService) {}
-  sendSearch(event) {
+
+  sendSearch(value) {
     this.subscriber = this.movieService
       .getMovieList(
-        { key: 's', value: event.srcElement.value },
+        { key: 's', value },
         {
           type: this.type == 'any' ? null : this.type,
           year: this.value,
@@ -41,6 +49,22 @@ export class SearchComponent {
           this.errorMessage = error['message'];
         }
       );
+  }
+
+  @ViewChild('input', { static: true }) input: ElementRef;
+
+  ngAfterViewInit() {
+    // server-side search
+    fromEvent(this.input.nativeElement, 'keyup')
+      .pipe(
+        filter(Boolean),
+        debounceTime(500),
+        distinctUntilChanged(),
+        tap((event: KeyboardEvent) => {
+          this.sendSearch(this.input.nativeElement.value);
+        })
+      )
+      .subscribe();
   }
 
   ngOnDestroy() {
