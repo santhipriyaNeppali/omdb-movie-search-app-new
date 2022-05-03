@@ -10,6 +10,7 @@ export class ItemDetailsComponent implements OnInit {
   @Input() item: any = {};
 
   showSpinner: boolean = false;
+  addedToWatchList: boolean = false;
 
   constructor(private movieService: MovieService) {}
 
@@ -26,7 +27,14 @@ export class ItemDetailsComponent implements OnInit {
       this.movieService.getMovie(this.item.Title).subscribe((res) => {
         this.showSpinner = false;
         this.item = Object.assign(this.item, res);
+        this.addedToWatchList = this.movieService.isInWatchList(this.item);
       });
     }
+  }
+
+  addOrRemoveWatchList() {
+    if (this.addedToWatchList) this.movieService.removeFrmWatchList(this.item);
+    else this.movieService.addToWatchList(this.item);
+    this.addedToWatchList = this.movieService.isInWatchList(this.item);
   }
 }

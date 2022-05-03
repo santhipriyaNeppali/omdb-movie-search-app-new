@@ -1,5 +1,4 @@
-import { Component, ElementRef, VERSION, ViewChild } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MovieService } from '../services/movie.service';
 import { Options } from '@angular-slider/ngx-slider';
 import {

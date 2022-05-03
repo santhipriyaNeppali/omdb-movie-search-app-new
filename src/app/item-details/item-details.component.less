@@ -1,48 +1,67 @@
+@import '/~/src/app/variables.less';
+
 .movie-full-info {
   display: flex;
-  img {
+  .img-wrapper {
     width: 15em;
+    height: 15em;
     margin: 2em;
-    border-radius: 0.3em;
-    border: 1px solid lightgray;
-  }
-  .rated {
-    border: 1px solid lightgray;
-    width: fit-content;
-    padding: 0.2em 0.5em;
-    border-radius: 0.3em;
-  }
-  .movie-text {
-    align-self: center;
-    .title {
-      font-size: 3em;
-      font-weight: 600;
+    img {
+      width: 100%;
+      height: 100%;
+      border: 1px solid @divider-color;
+      border-radius: 0.3em;
     }
   }
 }
+
 .plot {
   margin: 0em 1em;
-  border-bottom: 1px solid lightgrey;
-  border-top: 1px solid lightgrey;
   padding: 1em 0;
-}
-
-.sub-text {
-  display: flex;
-  align-items: center;
-  span {
-    margin-right: 0.3em;
-  }
+  border-bottom: 1px solid @divider-color;
+  border-top: 1px solid @divider-color;
 }
 
 .ratingSource {
   width: 28%;
   padding: 0em 1em;
+  margin: 1em 0;
   text-align: center;
   display: inline-block;
   flex-direction: row;
-  margin: 1em 0;
   &:not(:last-of-type) {
-    border-right: 1px solid grey;
+    border-right: 1px solid @divider-color;
+  }
+}
+
+.watchlist {
+  align-self: self-start;
+  padding: 0.4em;
+  border: 1px solid #000000;
+  border-radius: 0.3em;
+  margin: 2em;
+  align-content: center;
+  display: flex;
+  cursor: pointer;
+}
+
+.rated {
+  border: 1px solid @divider-color;
+  border-radius: 0.3em;
+  width: fit-content;
+  padding: 0.2em 0.5em;
+}
+.movie-text {
+  align-self: center;
+  .sub-text {
+    display: flex;
+    align-items: center;
+    span {
+      margin-right: 0.3em;
+    }
+  }
+  .title {
+    font-size: 26px;
+    font-weight: 600;
   }
 }

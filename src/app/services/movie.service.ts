@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
@@ -42,6 +42,7 @@ const URL = `https://www.omdbapi.com`;
 export class MovieService {
   private movieList = new BehaviorSubject<any>([]);
   private reqURL: string = '';
+  private watchList = new Map();
 
   constructor(private http: HttpClient) {}
 
@@ -57,6 +58,18 @@ export class MovieService {
       this.reqURL += `&y=${filterParams.year}`;
     }
     return this.http.get(this.reqURL);
+  }
+
+  addToWatchList(item: Movie) {
+    this.watchList.set(item.imdbID, item);
+  }
+
+  removeFrmWatchList(item) {
+    this.watchList.delete(item.imdbID);
+  }
+
+  isInWatchList(item) {
+    return this.watchList.has(item.imdbID);
   }
 
   getMovie(title) {

@@ -1,13 +1,15 @@
+@import '/~/src/app/variables.less';
+
 .movie-poster {
   width: 5em;
   height: 5em;
   border-radius: 0.3em;
   margin-right: 2em;
-  border: 1px solid lightgrey;
+  border: 1px solid @border-color;
 }
 
 .movie-block {
-  border-bottom: 1px solid lightgrey;
+  border-bottom: 1px solid @border-color;
   padding: 2em 2em;
   display: flex;
   flex-direction: row;
@@ -23,17 +25,17 @@
   flex-direction: column;
   justify-content: center;
   span.title {
-    color: #5b5a5a;
+    color: @movie-title-color;
     font-size: 20px;
     font-weight: 600;
   }
   span.year {
-    color: #868686;
+    color: @movie-subtext-color;
     font-size: 14px;
   }
 }
 
 .list-wrapper {
-  border-right: 1px solid lightgray;
+  border-right: 1px solid @border-color;
   width: 100%;
 }

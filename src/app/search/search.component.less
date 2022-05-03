@@ -1,7 +1,9 @@
+@import '/~/src/app/variables.less';
+
 header {
-  color: white;
+  color: @header-font-color;
   padding: 8px 16px;
-  background-color: grey;
+  background-color: @header-bg-color;
   border-radius: 0.1em;
   flex-direction: row;
   display: flex;
@@ -57,17 +59,17 @@ header {
 
 ::ng-deep .mat-focused .mat-form-field-label {
   /*change color of label*/
-  color: white !important;
+  color: @header-font-color !important;
 }
 
 ::ng-deep.mat-form-field-underline {
   /*change color of underline*/
-  background-color: white !important;
+  background-color: @header-font-color !important;
 }
 
 ::ng-deep.mat-form-field-ripple {
   /*change color of underline when focused*/
-  background-color: white !important;
+  background-color: @header-font-color !important;
 }
 
 /* media */
