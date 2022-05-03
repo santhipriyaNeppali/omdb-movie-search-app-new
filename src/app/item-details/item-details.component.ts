@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { MovieService } from '../services/movie.service';
 
 @Component({
@@ -12,6 +13,8 @@ export class ItemDetailsComponent implements OnInit {
   showSpinner: boolean = false;
   addedToWatchList: boolean = false;
 
+  movieSubscriber: Subscription;
+
   constructor(private movieService: MovieService) {}
 
   ngOnInit() {}
@@ -24,17 +27,27 @@ export class ItemDetailsComponent implements OnInit {
         this.item = {};
         return;
       }
-      this.movieService.getMovie(this.item.Title).subscribe((res) => {
-        this.showSpinner = false;
-        this.item = Object.assign(this.item, res);
-        this.addedToWatchList = this.movieService.isInWatchList(this.item);
-      });
+      if (this.movieSubscriber) this.movieSubscriber.unsubscribe();
+      this.movieSubscriber = this.movieService
+        .getMovie(this.item.Title)
+        .subscribe((res) => {
+          this.showSpinner = false;
+          this.item = Object.assign(this.item, res);
+          this.addedToWatchList = this.movieService.isInWatchList(this.item);
+        });
     }
   }
 
+  /**
+   * To add/remove the movie/episode to watchlist
+   */
   addOrRemoveWatchList() {
     if (this.addedToWatchList) this.movieService.removeFrmWatchList(this.item);
     else this.movieService.addToWatchList(this.item);
     this.addedToWatchList = this.movieService.isInWatchList(this.item);
+  }
+
+  ngOnDestroy() {
+    if (this.movieSubscriber) this.movieSubscriber.unsubscribe();
   }
 }

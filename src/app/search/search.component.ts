@@ -19,6 +19,7 @@ import { constants } from '../utils/constants';
 export class SearchComponent {
   errorMessage: string;
   subscriber: Subscription;
+  @ViewChild('input', { static: true }) input: ElementRef;
 
   //Default Search Parameters
   value: number = constants.MOVIE_SEARCH.YEAR.MIN;
@@ -50,8 +51,6 @@ export class SearchComponent {
       );
   }
 
-  @ViewChild('input', { static: true }) input: ElementRef;
-
   ngAfterViewInit() {
     // server-side search
     fromEvent(this.input.nativeElement, 'keyup')
@@ -59,11 +58,9 @@ export class SearchComponent {
         filter(Boolean),
         debounceTime(500),
         distinctUntilChanged(),
-        tap((event: KeyboardEvent) => {
-          this.sendSearch(this.input.nativeElement.value);
-        })
+        tap((event: KeyboardEvent) => {})
       )
-      .subscribe();
+      .subscribe((res) => this.sendSearch(this.input.nativeElement.value));
   }
 
   ngOnDestroy() {

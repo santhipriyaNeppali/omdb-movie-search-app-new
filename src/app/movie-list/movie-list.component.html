@@ -1,26 +1,27 @@
 <!--List of Movies/Episodes-->
 <div class="spinner-wrapper" *ngIf="showSpinner">
-<mat-progress-spinner
-  strokeWidth="4"
-  [diameter]="30"
-  mode="indeterminate"
-></mat-progress-spinner>
+  <mat-progress-spinner
+    strokeWidth="4"
+    [diameter]="30"
+    mode="indeterminate"
+  ></mat-progress-spinner>
 </div>
-
-<div class="list-wrapper">
-<ng-container *ngFor="let movie of movies">
-  <div class="movie-block" (click)="selectItem(movie)">
-    <img class="movie-poster" [src]="movie['Poster']" />
-    <div class="movie-title">
-      <span class="title">{{ movie.Title }}</span>
-      <span class="year">{{ movie.Year }}</span>
-    </div>
-  </div>
-</ng-container>
 
 <div *ngIf="noResults" mat-line class="no-results">
   <span *ngIf="!error">No results found.</span>
   <mat-error>{{ error }}</mat-error>
+</div>
+
+<div class="list-wrapper">
+  <ng-container *ngFor="let movie of movies">
+    <div class="movie-block" (click)="selectItem(movie)">
+      <img class="movie-poster" [src]="movie['Poster']" />
+      <div class="movie-title">
+        <span class="title">{{ movie.Title }}</span>
+        <span class="year">{{ movie.Year }}</span>
+      </div>
+    </div>
+  </ng-container>
 </div>
 
 <!--Paginator-->
@@ -33,4 +34,3 @@
   >
   </mat-paginator>
 </ng-container>
-</div>

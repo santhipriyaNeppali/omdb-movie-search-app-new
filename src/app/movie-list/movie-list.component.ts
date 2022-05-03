@@ -49,6 +49,7 @@ export class MovieListComponent implements OnInit, AfterViewInit {
 
   subscribePaginator() {
     if (!this.paginator) return;
+    if (this.paginatorSubscriber) this.paginatorSubscriber.unsubscribe();
     this.paginatorSubscriber = this.paginator.page.subscribe((event) => {
       this.showSpinner = true;
       this.movieService.getPaginatedList(event.pageIndex).subscribe((res) => {
