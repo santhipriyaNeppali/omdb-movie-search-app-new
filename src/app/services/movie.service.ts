@@ -46,6 +46,9 @@ export class MovieService {
 
   constructor(private http: HttpClient) {}
 
+  /**
+   * To get movie list with optional filters
+   */
   getMovieList(
     args: { key: string; value: string },
     filterParams?: { type: string; year: number }
@@ -60,18 +63,9 @@ export class MovieService {
     return this.http.get(this.reqURL);
   }
 
-  addToWatchList(item: Movie) {
-    this.watchList.set(item.imdbID, item);
-  }
-
-  removeFrmWatchList(item) {
-    this.watchList.delete(item.imdbID);
-  }
-
-  isInWatchList(item) {
-    return this.watchList.has(item.imdbID);
-  }
-
+  /**
+   * To get details of the item
+   */
   getMovie(title) {
     return this.http.get(`${URL}?t=${title}&apikey=${APIKEY}`);
   }
@@ -84,27 +78,23 @@ export class MovieService {
     return this.movieList;
   }
 
+  /**
+   * To get paginated list of movies
+   */
   getPaginatedList(page) {
     return this.http.get(`${this.reqURL}&page=${page}`);
   }
 
-  filterSearch(filterParams) {
-    return this.movieList.getValue().filter((movieItem) => {
-      if (
-        !filterParams.type ||
-        (filterParams.type && filterParams.type == movieItem.Type)
-      ) {
-        return true;
-      }
-      if (
-        !filterParams.year ||
-        (filterParams.year &&
-          filterParams.year.min >= movieItem.Year &&
-          filterParams.year.max <= movieItem.Year)
-      ) {
-        return true;
-      }
-      return false;
-    });
+  //WatchList CRUD operations
+  addToWatchList(item: Movie) {
+    this.watchList.set(item.imdbID, item);
+  }
+
+  removeFrmWatchList(item) {
+    this.watchList.delete(item.imdbID);
+  }
+
+  isInWatchList(item) {
+    return this.watchList.has(item.imdbID);
   }
 }
