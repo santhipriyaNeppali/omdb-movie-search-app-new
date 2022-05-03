@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   EventEmitter,
   OnInit,
@@ -14,32 +15,53 @@ import { Movie, MovieService } from '../services/movie.service';
   templateUrl: './movie-list.component.html',
   styleUrls: ['./movie-list.component.less'],
 })
-export class MovieListComponent implements OnInit {
+export class MovieListComponent implements OnInit, AfterViewInit {
   movies: Movie[] = [];
-  movieSubsriber: Subscription;
+  movieSubscriber: Subscription;
+  paginatorSubscriber: Subscription;
   totalResults = 0;
+  noResults: boolean = false;
+  error: string = null;
+  showSpinner = false;
+
   @Output() itemSelected = new EventEmitter();
   @ViewChild(MatPaginator) paginator: MatPaginator;
+
   constructor(private movieService: MovieService) {}
 
   ngOnInit() {
-    this.movieSubsriber = this.movieService
+    this.movieSubscriber = this.movieService
       .getMovieLstSubject()
       .subscribe((res) => {
+        this.itemSelected.next(null);
         this.movies = res['Search'] || [];
         this.totalResults = res['totalResults'];
-        console.log(this.totalResults);
+        if (this.paginator) this.paginator.firstPage();
+        this.error = res['Error'];
+        this.noResults = this.movies.length == 0;
+        if (!this.noResults) this.subscribePaginator();
       });
+  }
 
-    this.paginator.page.subscribe((event) => {
+  ngAfterViewInit() {
+    this.subscribePaginator();
+  }
+
+  subscribePaginator() {
+    if (!this.paginator) return;
+    this.paginatorSubscriber = this.paginator.page.subscribe((event) => {
+      this.showSpinner = true;
       this.movieService.getPaginatedList(event.pageIndex).subscribe((res) => {
         this.movies = res['Search'] || [];
+        this.noResults = this.movies.length == 0;
+        this.showSpinner = false;
       });
     });
   }
 
   ngOnDestroy() {
-    this.movieSubsriber.unsubscribe();
+    if (this.movieSubscriber) this.movieSubscriber.unsubscribe();
+    if (this.paginatorSubscriber) this.paginatorSubscriber.unsubscribe();
   }
 
   selectItem(movie) {

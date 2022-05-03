@@ -59,3 +59,13 @@
 .ngx-slider .ngx-slider-span.ngx-slider-pointer.ngx-slider-active {
   outline-color: darkgray;
 }
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.spinner-wrapper {
+  left: 50%;
+  top: 20%;
+  position: relative;
+}

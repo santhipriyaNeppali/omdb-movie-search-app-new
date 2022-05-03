@@ -49,14 +49,14 @@ export class MovieService {
     args: { key: string; value: string },
     filterParams?: { type: string; year: number }
   ) {
-    let reqURL = `${URL}?${args.key}=${args.value}&apikey=${APIKEY}`;
+    this.reqURL = `${URL}?${args.key}=${args.value}&apikey=${APIKEY}`;
     if (filterParams && filterParams.type) {
-      reqURL += `&type=${filterParams.type}`;
+      this.reqURL += `&type=${filterParams.type}`;
     }
     if (filterParams && filterParams.year) {
-      reqURL += `&y=${filterParams.year}`;
+      this.reqURL += `&y=${filterParams.year}`;
     }
-    return this.http.get(reqURL);
+    return this.http.get(this.reqURL);
   }
 
   getMovie(title) {

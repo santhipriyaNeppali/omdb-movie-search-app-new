@@ -1,23 +1,31 @@
-<ng-container *ngIf="item && item.Year">
-  <div class="movie-full-info">
-    <img src="{{ item.Poster }}" />
-    <div class="movie-text">
-      <p class="title">{{ item.Title }}</p>
-      <p class="sub-text">
-        <span class="rated">{{ item.Rated }}</span>
-        <span>{{ item.Year }}.</span>
-        <span>{{ item.Genre }}.</span>
-        <span>{{ item.Runtime }}</span>
-      </p>
+<div class="spinner-wrapper" *ngIf="showSpinner">
+<mat-progress-spinner
+  strokeWidth="4"
+  [diameter]="30"
+  mode="indeterminate"
+></mat-progress-spinner>
+</div>
 
-      <p>{{ item.Actors }}</p>
-    </div>
+<ng-container *ngIf="!showSpinner && item && item.Year">
+<div class="movie-full-info">
+  <img src="{{ item.Poster }}" />
+  <div class="movie-text">
+    <span class="title">{{ item.Title }}</span>
+    <p class="sub-text">
+      <span class="rated">{{ item.Rated }}</span>
+      <span>{{ item.Year }}.</span>
+      <span>{{ item.Genre }}.</span>
+      <span>{{ item.Runtime }}</span>
+    </p>
+
+    <p>{{ item.Actors }}</p>
   </div>
-  <p class="plot">{{ item.Plot }}</p>
-  <div class="rating">
-    <div *ngFor="let rating of item.Ratings" class="ratingSource">
-      <p>{{ rating.Source }}</p>
-      <span>{{ rating.Value }}</span>
-    </div>
+</div>
+<p class="plot">{{ item.Plot }}</p>
+<div class="rating">
+  <div *ngFor="let rating of item.Ratings" class="ratingSource">
+    <p>{{ rating.Source }}</p>
+    <span>{{ rating.Value }}</span>
   </div>
+</div>
 </ng-container>

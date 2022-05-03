@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatIconModule,
     NgxSliderModule,
     MatPaginatorModule,
+    MatProgressSpinnerModule,
   ],
   declarations: [
     AppComponent,
